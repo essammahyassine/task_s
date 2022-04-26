@@ -6,7 +6,7 @@
 <div class="containner">
 <div class="row">
 <center> <h1 class="my-4">List of Tasks !</h1> </center>
-<div class="col-md-8 mx-auto my-4"> 
+<div class="col-md-10 mx-auto"> 
 <table class="table">
     <thead>
         <tr>
@@ -18,13 +18,15 @@
         </tr>
     </thead>
     <tbody>
+    {% for tasks in task %}
         <tr>
-            <td scope="row"></td>
-            <td></td>
-            <td></td>
-            <td></td>
+        
+            <td scope="row">{{tasks.id}}</td>
+            <td>{{tasks.name}}</td>
+            <td>{{tasks.description}}</td>
+            <td>{{tasks.status}}</td>
         </tr>
-      
+      {% endfor %}
     </tbody>
 </table>
 <div>

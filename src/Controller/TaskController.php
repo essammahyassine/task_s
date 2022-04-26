@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Repository\TaskRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,11 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class TaskController extends AbstractController
 {
     #[Route('/task', name: 'app_task')]
-    public function index(): Response
+    public function index(TaskRepository $taskRepository): Response
     {
-        return $this->render('task/index.html.twig', [
-            'controller_name' => 'TaskController',
-        ]);
+        $task = $taskRepository->findAll();
+        return $this->render('task/index.html.twig', ['task' => $task,]);
     }
 
 
@@ -41,4 +41,8 @@ class TaskController extends AbstractController
 
         return new Response('Saved new product with id '.$task->getId());
     }
+
+
+    
+
 }
