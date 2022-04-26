@@ -98,4 +98,30 @@ class TaskController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/update/{id}" , name="edit")
+     */
+    public function update(Task $task,Request $request,ManagerRegistry $doctrine): Response
+    {
+        // just set up a fresh $task object (remove the example data)
+        //$task = new Task();
+
+        $form = $this->createForm(TaskType::class, $task);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $task = $form->getData();
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($task);        
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_task');
+        }
+
+        return $this->renderForm('task/new.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
 }
