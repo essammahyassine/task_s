@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,6 +70,32 @@ class TaskController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_task');
+    }
+
+    /**
+     * @Route("/new" , name="addnew")
+     */
+    public function new(Request $request,ManagerRegistry $doctrine): Response
+    {
+        // just set up a fresh $task object (remove the example data)
+        $task = new Task();
+
+        $form = $this->createForm(TaskType::class, $task);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $task = $form->getData();
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($task);        
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_task');
+        }
+
+        return $this->renderForm('task/new.html.twig', [
+            'form' => $form,
+        ]);
     }
 
 }
