@@ -6,13 +6,16 @@ use App\Entity\Task;
 use App\Repository\TaskRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TaskController extends AbstractController
 {
-    #[Route('/task', name: 'app_task')]
+     /**
+     * @Route("/task", name="app_task")
+     */
     public function index(TaskRepository $taskRepository): Response
     {
         $task = $taskRepository->findAll();
@@ -50,6 +53,21 @@ class TaskController extends AbstractController
     {
         $task = $taskRepository->find($id);
         return $this->render('task/show.html.twig', ['task' => $task,]);
+    }
+
+     /**
+     * @Route("/delete/{id}" , name="delete_task")
+     */
+    public function delete(int $id,ManagerRegistry $doctrine)
+    {
+        $entityManager = $doctrine->getManager();
+        $task = $entityManager->getRepository(Task::class)->find($id);
+
+        
+        $entityManager->remove($task);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_task');
     }
 
 }
