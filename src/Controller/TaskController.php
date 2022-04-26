@@ -43,6 +43,13 @@ class TaskController extends AbstractController
     }
 
 
-    
+    /**
+     * @Route("/task/{id}", name="product_show")
+     */
+    public function show(int $id, TaskRepository $taskRepository): Response
+    {
+        $task = $taskRepository->find($id);
+        return $this->render('task/show.html.twig', ['task' => $task,]);
+    }
 
 }

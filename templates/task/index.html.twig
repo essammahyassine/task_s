@@ -25,6 +25,13 @@
             <td>{{tasks.name}}</td>
             <td>{{tasks.description}}</td>
             <td>{{tasks.status}}</td>
+            <td>
+            
+            <a name="" id="" class="btn btn-primary" href="{{path('product_show',{id:tasks.id})}}" role="button"><i class="fa fa-eye"></i></a>
+            <a name="" id="" class="btn btn-danger" href="#" role="button"><i class="fa fa-edit"></i></a>
+            <a name="" id="" class="btn btn-warning" href="#" role="button"><i class="fa fa-trash"></i></a>
+            </td>
+            
         </tr>
       {% endfor %}
     </tbody>

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{task.name}} : {{task.id}}{% endblock %}
+
+{% block body %}
+<div class="containner">
+
+<center> <h1 class="my-4">Tasks : {{task.id}}</h1> 
+
+
+</center>
+
+<div class="col-md-5  mx-auto">
+<div class="card text-left">
+   <img src="https://img-19.commentcamarche.net/WNCe54PoGxObY8PCXUxMGQ0Gwss=/480x270/smart/d8c10e7fd21a485c909a5b4c5d99e611/ccmcms-commentcamarche/20456790.jpg" class="img-thumbnail card-img-top" > 
+  <div class="card-body">
+     <h4 class="card-title">{{task.name}} : {{task.id}}</h4>
+    <p class="card-text">{{task.description}}
+    <br>{{task.status}}
+    </p>
+  </div>
+</div>
+</div>
+
+</div>
+
+{% endblock %}
